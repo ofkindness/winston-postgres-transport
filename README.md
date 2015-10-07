@@ -25,7 +25,7 @@ CREATE TABLE winston_logs (
 * __tableName:__ The name of a table with the following columns: level, message, metadata. Specifying `tableName` will override `sqlStatement`.
 * __level:__ The winston log level, default "info"
 
-You required to specify correct conString and either `sqlStatement or a `tableName`. See the default values used as example:
+You required to specify correct conString and either `sqlStatement` or a `tableName`. See the default values used in example:
 
 ``` js
 var options = {
@@ -47,8 +47,8 @@ var pgNative = require("winston-pg-native").pgNative;
 var logger = new(winston.Logger)();
 
 var options = {
-  "conString" : 'postgres://username:password@localhost:5432/database',
-  "tableName": 'winston_logs'
+  "conString" : "postgres://username:password@localhost:5432/database",
+  "tableName": "winston_logs"
 };
 
 logger.add(pgNative, options);
@@ -58,7 +58,7 @@ module.exports = logger;
 
 ## AUTHORS
 
-[Auto-generated](https://github.com/nololabout/winston-pg-native/blob/master/AUTHORS)
+[AUTHORS](https://github.com/nololabout/winston-pg-native/blob/master/AUTHORS)
 
 ## LICENSE
 
