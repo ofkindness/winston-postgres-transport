@@ -34,6 +34,7 @@ var options = {
   "tableName": "winston_logs",
   "level" : "info"
 };
+```
 
 ## Usage 
 
