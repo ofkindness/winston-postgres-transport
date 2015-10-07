@@ -56,6 +56,16 @@ logger.add(pgNative, options);
 module.exports = logger;
 ```
 
+``` js
+'use strict';
+
+var logger = require('./logger');
+
+var params = {};
+
+logger.log('info', 'new', params);
+```
+
 ## AUTHORS
 
 [AUTHORS](https://github.com/nololabout/winston-pg-native/blob/master/AUTHORS)
