@@ -24,7 +24,8 @@
     "main": "lib/winston-pg-native.js",
     "dependencies": {
         "pg": ">4.0.0",
-        "pg-native": ">1.8.0"
+        "pg-native": ">1.8.0",
+        "winston": ">= 1.0.1"
     },
     "engines": {
         "node": ">= 0.12.x"
