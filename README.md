@@ -27,11 +27,9 @@ CREATE TABLE winston_logs (
 ## Options
 
 * __conString:__ The PostgreSQL connection string. Required.
-* __tableConfig:__ Optional object with tableName and tableFields properties, both required.
+* __tableConfig:__ Optional object with tableName and tableFields properties, both required. Either you can use Array or a comma separated String for a `tableFields`.
 * __sqlStatement:__ Optional SQL statement that takes 3 parameters: level, msg, meta. Specifying `sqlStatement` will override `tableConfig` settings.
 * __level:__ The winston's log level, default: "info"
- 
-Either you can use `sqlStatement` or a `tableConfig`.
 
 See the default values used:
 
