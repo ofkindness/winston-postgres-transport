@@ -1,18 +1,24 @@
 winston-pg-native
 =================
 
-A Winston transport for PostgreSQL. Uses high performance native bindings between node.js and PostgreSQL via libpq. Using native bindings increases 20-30% in parsing speed.
+A Winston transport for PostgreSQL. Uses high performance native bindings between node.js and PostgreSQL via libpq. 
+
+## Upgrading from 1.3.* to 2.0
+  - [Upgrade Tips](https://github.com/nololabout/winston-pg-native/wiki/Upgrading-to-2.x)
 
 ## Installation
 
-`npm install winston-pg-native`
+  - Latest release:
 
-You must have a table in your PostgreSQL database:
+    $ npm install winston-pg-native
 
-``` sql
+
+You must have a table in your PostgreSQL database, for example:
+
+``` sql 
 CREATE TABLE winston_logs (
     ts timestamp default current_timestamp,
-    lvl varchar,
+    level varchar,
     msg varchar,
     meta json
 );
@@ -20,50 +26,56 @@ CREATE TABLE winston_logs (
 
 ## Options
 
-* __conString:__ The PostgreSQL connection string.
-* __sqlStatement:__ A SQL statement that takes 3 parameters: level, message, metadata.
-* __tableName:__ The name of a table with the following columns: level, message, metadata. Specifying `tableName` will override `sqlStatement`.
-* __level:__ The winston log level, default "info"
+* __conString:__ The PostgreSQL connection string. Required.
+* __tableConfig:__ Optional object with tableName and tableFields properties, both required.
+* __sqlStatement:__ Optional SQL statement that takes 3 parameters: level, msg, meta. Specifying `sqlStatement` will override `tableConfig` settings.
+* __level:__ The winston's log level, default: "info"
+ 
+Either you can use `sqlStatement` or a `tableConfig`.
 
-You required to specify correct conString and either `sqlStatement` or a `tableName`. See the default values used in example:
+See the default values used:
 
 ``` js
 var options = {
-  "conString" : "postgres://username:password@localhost:5432/database",
-  "sqlStatement": "SELECT logging($1, $2, $3)",
-  "tableName": "winston_logs",
-  "level" : "info"
+  conString: "postgres://username:password@localhost:5432/database",
+  tableConfig: {
+    tableName: 'winston_logs',
+    tableFields: 'level, msg, meta'
+  },
+  level: 'info'
 };
 ```
 
 ## Usage 
 
+
 ``` js
 'use strict';
 
 var winston = require("winston");
-var pgNative = require("winston-pg-native").pgNative;
+require("winston-pg-native");
 
-var logger = new(winston.Logger)();
-
-var options = {
-  "conString" : "postgres://username:password@localhost:5432/database",
-  "tableName": "winston_logs"
-};
-
-logger.add(pgNative, options);
+var logger = new(winston.Logger)({
+  transports: [
+    new(winston.transports.Postgres)({
+      conString: "postgres://username:password@localhost:5432/database",
+      tableConfig: {
+        tableName: 'winston_logs',
+        tableFields: 'level, msg, meta'
+      },
+      level: 'info'
+    })
+  ]
+});
 
 module.exports = logger;
 ```
 
+
 ``` js
-'use strict';
 
-var logger = require('./logger');
+logger.log('info', 'message', {});
 
-var params = {};
-
-logger.log('info', 'new', params);
 ```
 
 ## AUTHORS
