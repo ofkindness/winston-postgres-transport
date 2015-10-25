@@ -16,12 +16,16 @@ A Winston transport for PostgreSQL. Uses high performance native bindings betwee
 You must have a table in your PostgreSQL database, for example:
 
 ``` sql 
-CREATE TABLE winston_logs (
-    ts timestamp default current_timestamp,
-    level varchar,
-    msg varchar,
-    meta json
-);
+CREATE SEQUENCE serial START 1;
+
+CREATE TABLE winston_logs
+(
+  pk integer PRIMARY KEY DEFAULT nextval('serial'),
+  ts timestamp without time zone DEFAULT now(),
+  level character varying,
+  msg character varying,
+  meta json
+)
 ```
 
 ## Options
