@@ -3,7 +3,7 @@ winston-pg-native
 
 A Winston transport for PostgreSQL. Uses high performance native bindings between node.js and PostgreSQL via libpq. 
 
-## Upgrading from 1.3.* to 2.0
+## Upgrading from 1.3.* to 2.*
   - [Upgrade Tips](https://github.com/nololabout/winston-pg-native/wiki/Upgrading-to-2.x)
 
 ## Installation
