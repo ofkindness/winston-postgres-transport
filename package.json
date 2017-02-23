@@ -1,7 +1,7 @@
 {
   "name": "winston-pg-native",
   "description": "A Winston transport for PostgreSQL. Uses high performance of native bindings.",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "keywords": [
     "winston",
     "logging",
@@ -11,25 +11,29 @@
     "pg",
     "libpq"
   ],
-  "author": "Andrei Tretyakov",
+  "author": {
+    "name": "Andrei Tretyakov",
+    "email": "andrei.tretyakov@gmail.com",
+    "url": "https://github.com/ofkindness"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nololabout/winston-pg-native.git"
+    "url": "https://github.com/ofkindness/winston-pg-native.git"
   },
-  "homepage": "https://github.com/nololabout/winston-pg-native",
+  "homepage": "https://github.com/ofkindness/winston-pg-native",
   "bugs": {
-    "url": "https://github.com/nololabout/winston-pg-native/issues"
+    "url": "https://github.com/ofkindness/winston-pg-native/issues"
   },
   "main": "lib/winston-pg-native.js",
   "dependencies": {
-    "pg": ">4.0.0",
-    "pg-native": ">1.8.0"
+    "pg": "^6.1.2",
+    "pg-native": "^1.10.0"
   },
   "devDependencies": {
-    "bluebird": "^3.3.5",
+    "bluebird": "^3.4.7",
     "vows": "^0.8.1",
-    "winston": "^2.2.0"
+    "winston": "^2.3.1"
   },
   "engines": {
     "node": ">4.4.4"

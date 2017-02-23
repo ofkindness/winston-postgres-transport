@@ -1,5 +1,8 @@
 winston-pg-native
 =================
+[![NPM version](https://img.shields.io/npm/v/winston-pg-native.svg)](https://npmjs.org/package/winston-pg-native)
+[![Dependency Status](https://david-dm.org/ofkindness/winston-pg-native.svg?theme=shields.io)](https://david-dm.org/ofkindness/winston-pg-native)
+[![NPM Downloads](https://img.shields.io/npm/dm/winston-pg-native.svg)](https://npmjs.org/package/winston-pg-native)
 
 A Winston transport for PostgreSQL. Uses high performance of native bindings between node.js and PostgreSQL via libpq.
 
@@ -83,9 +86,9 @@ logger.log('info', 'message', {});
 AUTHORS
 -------
 
-[AUTHORS](https://github.com/nololabout/winston-pg-native/blob/master/AUTHORS)
+[AUTHORS](https://github.com/ofkindness/winston-pg-native/blob/master/AUTHORS)
 
 LICENSE
 -------
 
-MIT
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
