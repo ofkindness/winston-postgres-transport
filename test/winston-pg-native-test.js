@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @module 'winston-pg-transport-test'
+ * @module 'winston-pg-native-test'
  * @fileoverview Tests of winston transport for logging into PostgreSQL
  * @license MIT
  * @author Andrei Tretyakov <andrei.tretyakov@gmail.com>
