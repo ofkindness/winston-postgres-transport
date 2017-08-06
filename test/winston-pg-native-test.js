@@ -16,7 +16,7 @@ var conString = 'postgres://' + process.env.POSTGRES_USER +
 ':' + process.env.POSTGRES_PORT +
 '/' + process.env.POSTGRES_DBNAME;
 
-vows.describe('winston-pg-transport')
+vows.describe('winston-pg-native')
   .addBatch({
     'An instance of the Postgres Transport': transport(Postgres, {
       conString: conString
