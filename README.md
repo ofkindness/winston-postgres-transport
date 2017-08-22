@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/ofkindness/winston-pg-native.svg?theme=shields.io)](https://david-dm.org/ofkindness/winston-pg-native)
 [![NPM Downloads](https://img.shields.io/npm/dm/winston-pg-native.svg)](https://npmjs.org/package/winston-pg-native)
 
-A Winston transport for PostgreSQL. Uses high performance of native bindings between node.js and PostgreSQL via libpq.
+A Winston transport for PostgreSQL. Uses high performance of native bindings via libpq.
 
 ## Installation
 
@@ -22,31 +22,29 @@ CREATE SEQUENCE serial START 1;
 
 CREATE TABLE winston_logs
 (
-  pk integer PRIMARY KEY DEFAULT nextval('serial'),
-  ts timestamp without time zone DEFAULT now(),
+  id integer PRIMARY KEY DEFAULT nextval('serial'),
+  timestamp timestamp without time zone DEFAULT now(),
   level character varying,
-  msg character varying,
+  message character varying,
   meta json
 )
 ```
 
 ## Options
 
--	**conString:** The PostgreSQL connection string. Required.
--	**tableConfig:** Optional object with tableName and tableFields properties, both required. Either you can use Array or a comma separated String for a `tableFields`.
--	**sqlStatement:** Optional SQL statement that takes 3 parameters: level, msg, meta. Specifying `sqlStatement` will override `tableConfig` settings.
--	**level:** The winston's log level, default: "info"
+-	**connectionString:** The PostgreSQL connection string. Required.
+-	**tableName:** PostgreSQL table name definition. Optional.
+-	**tableFields:** PostgreSQL table fields definition. Optional. You can use Array or a comma separated String.
+-	**level:** The winston's log level, default: info
 
 See the default values used:
 
 ```js
 const options = {
-  conString: 'postgres://username:password@localhost:5432/database',
+  connectionString: 'postgres://username:password@localhost:5432/database',
   level: 'info',
-  tableConfig: {
-    tableName: 'winston_logs',
-    tableFields: 'level, msg, meta'
-  }
+  tableName: 'winston_logs',
+  tableFields: ['level', 'message', 'meta']
 };
 ```
 
@@ -59,11 +57,10 @@ require('winston-pg-native');
 const logger = new(winston.Logger)({
   transports: [
     new(winston.transports.Postgres)({
-      conString: 'postgres://username:password@localhost:5432/database',
+      connectionString: 'postgres://username:password@localhost:5432/database',
       level: 'info',
-      tableConfig: {
-        tableName: 'winston_logs',
-        tableFields: 'level, msg, meta'
+      tableName: 'winston_logs',
+      tableFields: 'level, message, meta'
       }
     })
   ]
@@ -76,9 +73,13 @@ module.exports = logger;
 logger.log('info', 'message', {});
 ```
 
-## AUTHORS
+## Run Tests
 
-[AUTHORS](https://github.com/ofkindness/winston-pg-native/blob/master/AUTHORS)
+The tests are written in [vows](http://vowsjs.org), and designed to be run with npm.
+
+```bash
+  $ npm test
+```
 
 ## LICENSE
 
