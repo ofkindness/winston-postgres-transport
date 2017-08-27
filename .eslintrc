@@ -3,17 +3,13 @@
   "env": {
     "node": true,
     "mocha": true,
-    "es6": true,
-    "mongo": true
+    "es6": true
   },
   "rules": {
     // disable requiring trailing commas
     "comma-dangle": 0,
     "max-len": ["error", {"code": 120, "ignoreComments": true, "ignoreUrls": true}],
-    "no-underscore-dangle": ["error", { "allow": ["_id", "_version"] }],
-    "arrow-body-style": 0,
     "no-param-reassign": 0,
-    "no-restricted-syntax": 0,
     "jsx-a11y/href-no-hash": 0
   }
 }

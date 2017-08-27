@@ -8,8 +8,6 @@ A Winston transport for PostgreSQL. Uses high performance of native bindings via
 
 ## Installation
 
--	Latest release:
-
 ```console
   $ npm install winston
   $ npm install winston-pg-native
@@ -33,9 +31,9 @@ CREATE TABLE winston_logs
 ## Options
 
 -	**connectionString:** The PostgreSQL connection string. Required.
--	**tableName:** PostgreSQL table name definition. Optional.
+-	**level:** The winston's log level. Optional, default: info
 -	**tableFields:** PostgreSQL table fields definition. Optional. You can use Array or a comma separated String.
--	**level:** The winston's log level, default: info
+-	**tableName:** PostgreSQL table name definition. Optional.
 
 See the default values used:
 
@@ -43,8 +41,8 @@ See the default values used:
 const options = {
   connectionString: 'postgres://username:password@localhost:5432/database',
   level: 'info',
-  tableName: 'winston_logs',
   tableFields: ['level', 'message', 'meta']
+  tableName: 'winston_logs',
 };
 ```
 
@@ -59,8 +57,8 @@ const logger = new(winston.Logger)({
     new(winston.transports.Postgres)({
       connectionString: 'postgres://username:password@localhost:5432/database',
       level: 'info',
+      tableFields: ['level', 'message', 'meta']
       tableName: 'winston_logs',
-      tableFields: 'level, message, meta'
       }
     })
   ]
