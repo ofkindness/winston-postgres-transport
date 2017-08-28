@@ -50,11 +50,11 @@ const options = {
 
 ```js
 const winston = require('winston');
-require('winston-pg-native');
+const PostgresTransport = require('winston-pg-native');
 
-const logger = new(winston.Logger)({
+const logger = new (winston.Logger)({
   transports: [
-    new(winston.transports.Postgres)({
+    new (PostgresTransport)({
       connectionString: 'postgres://username:password@localhost:5432/database',
       level: 'info',
       tableFields: ['level', 'message', 'meta']
