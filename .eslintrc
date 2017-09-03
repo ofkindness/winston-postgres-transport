@@ -9,7 +9,6 @@
     // disable requiring trailing commas
     "comma-dangle": 0,
     "max-len": ["error", {"code": 120, "ignoreComments": true, "ignoreUrls": true}],
-    "no-param-reassign": 0,
     "jsx-a11y/href-no-hash": 0
   }
 }
