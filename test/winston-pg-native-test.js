@@ -8,29 +8,20 @@
 const Postgres = require('../lib/winston-pg-native.js');
 const transport = require('winston/test/transports/transport');
 const vows = require('vows');
-const winston = require('winston');
 
-const connectionString = `postgres://${process.env.POSTGRES_USER}\
-:${process.env.POSTGRES_PASSWORD}\
-@${process.env.POSTGRES_HOST}\
-:${process.env.POSTGRES_PORT}\
-/${process.env.POSTGRES_DBNAME}`;
+const connectionString = `postgres://${process.env.PGUSER}\
+:${process.env.PGPASSWORD}\
+@${process.env.PGHOST}\
+:${process.env.PGPORT}\
+/${process.env.PGDATABASE}`;
 
 vows.describe('winston-pg-native')
   .addBatch({
     'An instance of the Postgres Transport': transport(Postgres, {
-      connectionString
+      connectionString,
+      poolConfig: {
+        idleTimeoutMillis: 1
+      }
     })
-  })
-  .addBatch({
-    'An instance of the Postgres Transport': {
-      topic: new winston.Logger({
-        transports: [
-          new Postgres({
-            connectionString
-          })
-        ]
-      })
-    }
   })
   .export(module);
