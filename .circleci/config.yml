@@ -5,8 +5,9 @@ jobs:
       - image: circleci/node:6
       - image: postgres:9.6-alpine
         environment:
-          POSTGRES_USER: your_postgres_user
-          POSTGRES_DB: your_postgres_test
+          POSTGRES_USER: winston
+          POSTGRES_DB: winston
+          POSTGRES_PASSWORD: mysecretpassword
 
     working_directory: ~/winston-pg-native
 

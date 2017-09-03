@@ -17,11 +17,8 @@ A Winston transport for PostgreSQL. Uses high performance of native bindings via
 You must have a table in your PostgreSQL database, for example:
 
 ```sql
-CREATE SEQUENCE serial START 1;
-
 CREATE TABLE winston_logs
 (
-  id integer PRIMARY KEY DEFAULT nextval('serial'),
   timestamp timestamp without time zone DEFAULT now(),
   level character varying,
   message character varying,
@@ -34,7 +31,6 @@ CREATE TABLE winston_logs
 -	**connectionString:** The PostgreSQL connection string. Required.
 -	**level:** The winston's log level. Optional, default: info
 - **poolConfig:** Pool specific configuration parameters. Optional.
--	**tableFields:** PostgreSQL table fields definition. Optional. You can use Array or a comma separated String.
 -	**tableName:** PostgreSQL table name definition. Optional.
 
 See the default values used:
@@ -55,7 +51,6 @@ const options = {
     // by default this is set to 10.
     max: 10,
   },
-  tableFields: ['level', 'message', 'meta']
   tableName: 'winston_logs',
 };
 ```
@@ -76,7 +71,6 @@ const logger = new (winston.Logger)({
         idleTimeoutMillis: 0,
         max: 10,
       },
-      tableFields: ['level', 'message', 'meta'],
       tableName: 'winston_logs',
     })]
 });

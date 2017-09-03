@@ -5,23 +5,42 @@
  * @author Andrei Tretyakov <andrei.tretyakov@gmail.com>
  */
 
+const assert = require('assert');
 const Postgres = require('../lib/winston-pg-native.js');
 const transport = require('winston/test/transports/transport');
 const vows = require('vows');
+const winston = require('winston');
 
-const connectionString = `postgres://${process.env.PGUSER}\
+const options = {
+  connectionString: `postgres://${process.env.PGUSER}\
 :${process.env.PGPASSWORD}\
 @${process.env.PGHOST}\
 :${process.env.PGPORT}\
-/${process.env.PGDATABASE}`;
+/${process.env.PGDATABASE}`,
+  poolConfig: {
+    idleTimeoutMillis: 1
+  }
+};
 
 vows.describe('winston-pg-native')
   .addBatch({
-    'An instance of the Postgres Transport': transport(Postgres, {
-      connectionString,
-      poolConfig: {
-        idleTimeoutMillis: 1
+    'An instance of the Postgres Transport': {
+      topic: function topic() {
+        const logger = new (winston.Logger)({
+          transports: [
+            new (Postgres)(options)
+          ]
+        }).transports.Postgres;
+        const callback = this.callback;
+        logger.init().then(() => callback(null, true));
+      },
+      'should create table': (err, result) => {
+        assert.isNull(err);
+        assert.ok(result === true);
       }
-    })
+    }
+  })
+  .addBatch({
+    'An instance of the Postgres Transport': transport(Postgres, options)
   })
   .export(module);
