@@ -50,18 +50,16 @@ const options = {
 
 ```js
 const winston = require('winston');
-const PostgresTransport = require('winston-pg-native');
+const Postgres = require('winston-pg-native');
 
 const logger = new (winston.Logger)({
   transports: [
-    new (PostgresTransport)({
-      connectionString: 'postgres://username:password@localhost:5432/database',
+    new (Postgres)({
+      connectionString,
       level: 'info',
-      tableFields: ['level', 'message', 'meta']
+      tableFields: ['level', 'message', 'meta'],
       tableName: 'winston_logs',
-      }
-    })
-  ]
+    })]
 });
 
 module.exports = logger;
