@@ -58,12 +58,12 @@ const options = {
 ## Usage
 
 ```js
-const winston = require('winston');
+const { Logger } = require('winston');
 const Postgres = require('winston-pg-native');
 
-const logger = new (winston.Logger)({
+const logger = new Logger({
   transports: [
-    new (Postgres)({
+    new Postgres({
       connectionString,
       level: 'info',
       poolConfig: {

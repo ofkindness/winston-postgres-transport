@@ -1,7 +1,7 @@
 {
   "name": "winston-pg-native",
   "description": "A Winston transport for PostgreSQL. Uses high performance of native bindings.",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "keywords": [
     "winston",
     "logging",
@@ -30,20 +30,20 @@
   },
   "main": "lib/winston-pg-native.js",
   "dependencies": {
-    "circular-json": "^0.3.3",
-    "moment": "^2.18.1",
-    "pg": "^7.3.0",
+    "circular-json": "^0.4.0",
+    "moment": "^2.19.3",
+    "pg": "^7.4.0",
     "pg-native": "^2.2.0",
     "sql": "^0.78.0",
-    "vows": "^0.8.1",
-    "winston": "^2.3.1"
+    "winston": "^2.4.0"
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.3.0"
+    "eslint": "^4.13.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
+    "vows": "^0.8.1"
   },
   "engines": {
     "node": ">= 6.0.0"
