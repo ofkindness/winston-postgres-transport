@@ -30,7 +30,7 @@
   },
   "main": "lib/winston-pg-native.js",
   "dependencies": {
-    "circular-json": "^0.5.9",
+    "flatted": "^2.0.0",
     "moment": "^2.23.0",
     "pg": "^7.8.0",
     "pg-native": "^3.0.0",
