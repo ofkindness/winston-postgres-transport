@@ -30,20 +30,20 @@
   },
   "main": "lib/winston-pg-native.js",
   "dependencies": {
-    "circular-json": "^0.4.0",
-    "moment": "^2.19.3",
-    "pg": "^7.4.0",
-    "pg-native": "^2.2.0",
+    "circular-json": "^0.5.9",
+    "moment": "^2.23.0",
+    "pg": "^7.8.0",
+    "pg-native": "^3.0.0",
     "sql": "^0.78.0",
-    "winston": "^2.4.0"
+    "winston": "^2.4.4"
   },
   "devDependencies": {
-    "eslint": "^4.13.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.5.1",
-    "vows": "^0.8.1"
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.3",
+    "vows": "^0.8.2"
   },
   "engines": {
     "node": ">= 6.0.0"
