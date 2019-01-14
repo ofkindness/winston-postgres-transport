@@ -4,13 +4,12 @@
  * @license MIT
  * @author Andrei Tretyakov <andrei.tretyakov@gmail.com>
  */
-
 const assert = require('assert');
 const { Logger } = require('winston');
-const Postgres = require('../lib/winston-pg-native.js');
-const transport = require('winston/test/transports/transport');
 const vows = require('vows');
 
+const transport = require('winston/test/transports/transport');
+const Postgres = require('../lib/winston-pg-native.js');
 
 const options = {
   connectionString: `postgres://${process.env.PGUSER}\
