@@ -3,21 +3,21 @@
   "description": "A Winston transport for PostgreSQL. Uses high performance of native bindings.",
   "version": "4.2.0",
   "keywords": [
-    "winston",
+    "libpq",
     "logging",
-    "transport",
+    "pg",
     "postgres",
     "postgresql",
-    "pg",
-    "libpq"
+    "transport",
+    "winston"
   ],
   "author": {
-    "name": "Andrei Tretyakov",
     "email": "andrei.tretyakov@gmail.com",
+    "name": "Andrei Tretyakov",
     "url": "https://github.com/ofkindness"
   },
   "scripts": {
-    "test": "vows --spec ./test/*"
+    "test": "mocha --exit --spec test/*.test.js"
   },
   "license": "MIT",
   "repository": {
@@ -38,6 +38,7 @@
     "winston-transport": "^4.4.0"
   },
   "devDependencies": {
+    "abstract-winston-transport": "^0.5.1",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -47,8 +48,8 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "mocha": "^8.4.0",
     "prettier": "^2.3.0",
-    "vows": "^0.8.3",
     "winston": "^3.3.3"
   },
   "engines": {

@@ -2,18 +2,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:6
+      - image: circleci/node:14
         environment:
+          PGDATABASE: winston
           PGHOST: 127.0.0.1
+          PGPASSWORD: mysecretpassword
           PGPORT: 5432
           PGUSER: winston
-          PGPASSWORD: mysecretpassword
-          PGDATABASE: winston
-      - image: postgres:9.6-alpine
+      - image: postgres:latest
         environment:
-          POSTGRES_USER: winston
           POSTGRES_DB: winston
           POSTGRES_PASSWORD: mysecretpassword
+          POSTGRES_USER: winston
 
     working_directory: ~/winston-pg-native
 
