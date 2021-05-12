@@ -18,18 +18,17 @@ const options = {
 :${process.env.PGPORT}\
 /${process.env.PGDATABASE}`,
   poolConfig: {
-    idleTimeoutMillis: 1
-  }
+    idleTimeoutMillis: 1,
+  },
 };
 
-vows.describe('winston-pg-native')
+vows
+  .describe('winston-pg-native')
   .addBatch({
     'An instance of the Postgres Transport': {
       topic: function topic() {
         const logger = new Logger({
-          transports: [
-            new Postgres(options)
-          ]
+          transports: [new Postgres(options)],
         }).transports.Postgres;
         const { callback } = this;
         logger.init().then(() => callback(null, true));
@@ -37,10 +36,10 @@ vows.describe('winston-pg-native')
       'should create table': (err, result) => {
         assert.isNull(err);
         assert.ok(result === true);
-      }
-    }
+      },
+    },
   })
   .addBatch({
-    'An instance of the Postgres Transport': transport(Postgres, options)
+    'An instance of the Postgres Transport': transport(Postgres, options),
   })
   .export(module);
