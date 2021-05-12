@@ -8,7 +8,7 @@
 const logSuite = require('abstract-winston-transport');
 
 // const querySuit = require('./suite/query');
-const Transport = require('../lib/winston-pg-native');
+const Transport = require('../lib/winston-pg-transport');
 
 const name = 'Postgres';
 

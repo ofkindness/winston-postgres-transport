@@ -1,7 +1,7 @@
 {
-  "name": "winston-pg-native",
+  "name": "winston-pg-transport",
   "description": "A Winston transport for PostgreSQL. Uses high performance of native bindings.",
-  "version": "4.2.0",
+  "version": "0.0.0",
   "keywords": [
     "libpq",
     "logging",
@@ -22,13 +22,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ofkindness/winston-pg-native.git"
+    "url": "https://github.com/ofkindness/winston-pg-transport.git"
   },
-  "homepage": "https://github.com/ofkindness/winston-pg-native",
+  "homepage": "https://github.com/ofkindness/winston-pg-transport",
   "bugs": {
-    "url": "https://github.com/ofkindness/winston-pg-native/issues"
+    "url": "https://github.com/ofkindness/winston-pg-transport/issues"
   },
-  "main": "lib/winston-pg-native.js",
+  "main": "lib/winston-pg-transport.js",
   "dependencies": {
     "flatted": "^3.1.1",
     "moment": "^2.29.1",
@@ -53,6 +53,6 @@
     "winston": "^3.3.3"
   },
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 14.0.0"
   }
 }

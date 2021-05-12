@@ -1,9 +1,9 @@
-# winston-pg-native
+# winston-pg-transport
 
-[![CircleCI](https://circleci.com/gh/ofkindness/winston-pg-native/tree/master.svg?style=svg)](https://circleci.com/gh/ofkindness/winston-pg-native/tree/master)
-[![NPM version](https://img.shields.io/npm/v/winston-pg-native.svg)](https://npmjs.org/package/winston-pg-native)
-[![Dependency Status](https://david-dm.org/ofkindness/winston-pg-native.svg?theme=shields.io)](https://david-dm.org/ofkindness/winston-pg-native)
-[![NPM Downloads](https://img.shields.io/npm/dm/winston-pg-native.svg)](https://npmjs.org/package/winston-pg-native)
+[![CircleCI](https://circleci.com/gh/ofkindness/winston-pg-transport/tree/master.svg?style=svg)](https://circleci.com/gh/ofkindness/winston-pg-transport/tree/master)
+[![NPM version](https://img.shields.io/npm/v/winston-pg-transport.svg)](https://npmjs.org/package/winston-pg-transport)
+[![Dependency Status](https://david-dm.org/ofkindness/winston-pg-transport.svg?theme=shields.io)](https://david-dm.org/ofkindness/winston-pg-transport)
+[![NPM Downloads](https://img.shields.io/npm/dm/winston-pg-transport.svg)](https://npmjs.org/package/winston-pg-transport)
 
 A Winston transport for PostgreSQL. Uses high performance of native bindings via libpq.
 
@@ -11,7 +11,7 @@ A Winston transport for PostgreSQL. Uses high performance of native bindings via
 
 ```console
   $ npm install winston
-  $ npm install winston-pg-native
+  $ npm install winston-pg-transport
 ```
 
 You must have a table in your PostgreSQL database, for example:
@@ -59,7 +59,7 @@ const options = {
 
 ```js
 const { Logger } = require('winston');
-const Postgres = require('winston-pg-native');
+const Postgres = require('winston-pg-transport');
 
 const logger = new Logger({
   transports: [

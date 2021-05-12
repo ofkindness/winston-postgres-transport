@@ -15,7 +15,7 @@ jobs:
           POSTGRES_PASSWORD: mysecretpassword
           POSTGRES_USER: winston
 
-    working_directory: ~/winston-pg-native
+    working_directory: ~/winston-pg-transport
 
     steps:
       - checkout
