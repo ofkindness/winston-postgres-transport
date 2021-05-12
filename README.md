@@ -28,10 +28,10 @@ CREATE TABLE winston_logs
 
 ## Options
 
--	**connectionString:** The PostgreSQL connection string. Required.
--	**level:** The winston's log level. Optional, default: info
+- **connectionString:** The PostgreSQL connection string. Required.
+- **level:** The winston's log level. Optional, default: info
 - **poolConfig:** Pool specific configuration parameters. Optional.
--	**tableName:** PostgreSQL table name definition. Optional.
+- **tableName:** PostgreSQL table name definition. Optional.
 
 See the default values used:
 
@@ -72,7 +72,8 @@ const logger = new Logger({
         max: 10,
       },
       tableName: 'winston_logs',
-    })]
+    }),
+  ],
 });
 
 module.exports = logger;
@@ -91,11 +92,11 @@ This transport supports querying of logs with Loggly-like options. [See Loggly S
 ```js
 const options = {
   fields: ['message'],
-  from: new Date - 24 * 60 * 60 * 1000,
-  until: new Date,
+  from: new Date() - 24 * 60 * 60 * 1000,
+  until: new Date(),
   start: 0,
   limit: 10,
-  order: 'desc'
+  order: 'desc',
 };
 
 //
@@ -125,7 +126,7 @@ logger.stream({ start: -1 }).on('log', (log) => {
 
 ## Run Tests
 
-The tests are written in [vows](http://vowsjs.org), and designed to be run with npm.
+The tests are written in [mocha](https://mochajs.org/), and designed to be run with npm.
 
 ```bash
   $ npm test
