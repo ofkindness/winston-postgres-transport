@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    mocha: true,
+    jest: true,
   },
   extends: ['airbnb-base', 'prettier'],
   parserOptions: {
@@ -11,6 +11,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
+    'no-param-reassign': ['error', { props: false }],
   },
   plugins: ['prettier'],
 };

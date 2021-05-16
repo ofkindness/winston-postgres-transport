@@ -1,11 +1,9 @@
 {
-  "name": "winston-pg-transport",
-  "description": "A Winston transport for PostgreSQL. Uses high performance of native bindings.",
+  "name": "winston-postgres-transport",
+  "description": "A Winston transport for PostgreSQL.",
   "version": "0.0.0",
   "keywords": [
-    "libpq",
     "logging",
-    "pg",
     "postgres",
     "postgresql",
     "transport",
@@ -17,28 +15,25 @@
     "url": "https://github.com/ofkindness"
   },
   "scripts": {
-    "test": "mocha --exit --spec test/*.test.js"
+    "test": "jest --detectOpenHandles --forceExit test/*.test.js"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ofkindness/winston-pg-transport.git"
+    "url": "https://github.com/ofkindness/winston-postgres-transport.git"
   },
-  "homepage": "https://github.com/ofkindness/winston-pg-transport",
+  "homepage": "https://github.com/ofkindness/winston-postgres-transport",
   "bugs": {
-    "url": "https://github.com/ofkindness/winston-pg-transport/issues"
+    "url": "https://github.com/ofkindness/winston-postgres-transport/issues"
   },
-  "main": "lib/winston-pg-transport.js",
+  "main": "lib/winston-postgres-transport.js",
   "dependencies": {
-    "flatted": "^3.1.1",
     "moment": "^2.29.1",
-    "node-sql-2": "^0.80.1",
-    "pg": "^8.6.0",
-    "pg-native": "^3.0.0",
+    "postgres": "^1.0.2",
     "winston-transport": "^4.4.0"
   },
   "devDependencies": {
-    "abstract-winston-transport": "^0.5.1",
+    "dotenv": "^9.0.2",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -48,9 +43,8 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "mocha": "^8.4.0",
-    "prettier": "^2.3.0",
-    "winston": "^3.3.3"
+    "jest": "^26.6.3",
+    "prettier": "^2.3.0"
   },
   "engines": {
     "node": ">= 14.0.0"
