@@ -15,7 +15,7 @@
     "url": "https://github.com/ofkindness"
   },
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit test/*.test.js"
+    "test": "jest winston-postgres-transport.test.js"
   },
   "license": "MIT",
   "repository": {
