@@ -30,6 +30,7 @@
   "dependencies": {
     "moment": "^2.29.1",
     "postgres": "^1.0.2",
+    "winston": "^3.3.3",
     "winston-transport": "^4.4.0"
   },
   "devDependencies": {
