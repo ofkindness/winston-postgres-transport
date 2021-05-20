@@ -30,13 +30,11 @@
   "dependencies": {
     "moment": "^2.29.1",
     "postgres": "^1.0.2",
-    "winston": "^3.3.3",
     "winston-transport": "^4.4.0"
   },
   "devDependencies": {
     "dotenv": "^9.0.2",
     "eslint": "^7.26.0",
-    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
