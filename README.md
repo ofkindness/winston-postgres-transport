@@ -5,7 +5,7 @@
 [![Dependency Status](https://david-dm.org/ofkindness/winston-postgres-transport.svg?theme=shields.io)](https://david-dm.org/ofkindness/winston-postgres-transport)
 [![NPM Downloads](https://img.shields.io/npm/dm/winston-postgres-transport.svg)](https://npmjs.org/package/winston-postgres-transport)
 
-A Winston transport for PostgreSQL. Uses high performance of native bindings via libpq.
+A Winston transport for PostgreSQL. Based on on [Postgres](https://github.com/porsager/postgres) fully featured, lightweight PostgreSQL client for Node.js
 
 ## Installation
 
@@ -19,38 +19,33 @@ You must have a table in your PostgreSQL database, for example:
 ```sql
 CREATE TABLE winston_logs
 (
-  timestamp timestamp without time zone DEFAULT now(),
   level character varying,
   message character varying,
-  meta json
+  meta json,
+  timestamp timestamp without time zone DEFAULT now(),
 )
 ```
 
 ## Options
 
-- **connectionString:** The PostgreSQL connection string. Required.
-- **level:** The winston's log level. Optional, default: info
-- **poolConfig:** Pool specific configuration parameters. Optional.
-- **tableName:** PostgreSQL table name definition. Optional.
+- **level:** The winston's log level. Optional, default: `info`
+- **name:** The winston's transport name. Optional, default: `Postgres`
+- **postgresOptions:** Postgres specific [connection options](https://github.com/porsager/postgres#connection-options-postgresurl-options). Optional.
+- **postgresUrl:** The PostgreSQL connection string. Required.
+- **tableName:** PostgreSQL table name definition. Optional, default `winston_logs`
 
 See the default values used:
 
 ```js
 const options = {
-  connectionString: 'postgres://username:password@localhost:5432/database',
+  defaultMeta: {},
   level: 'info',
-  poolConfig: {
-    // number of milliseconds to wait before timing out when connecting a new client
-    // by default this is 0 which means no timeout
-    connectionTimeoutMillis: 0,
-    // number of milliseconds a client must sit idle in the pool and not be checked out
-    // before it is disconnected from the backend and discarded
-    // default is 10000 (10 seconds) - set to 0 to disable auto-disconnection of idle clients
-    idleTimeoutMillis: 10000,
-    // maximum number of clients the pool should contain
-    // by default this is set to 10.
-    max: 10,
+  name: 'Postgres',
+  postgresOptions: {
+    // Is called with (connection, query, params)
+    debug: console.log,
   },
+  postgresUrl: 'postgres://username:password@localhost:5432/database',
   tableName: 'winston_logs',
 };
 ```
@@ -58,20 +53,15 @@ const options = {
 ## Usage
 
 ```js
-const { Logger } = require('winston');
-const Postgres = require('winston-postgres-transport');
+const winston = require('winston');
+const PostgresTransport = require('winston-postgres-transport');
 
-const logger = new Logger({
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
   transports: [
-    new Postgres({
-      connectionString,
-      level: 'info',
-      poolConfig: {
-        connectionTimeoutMillis: 0,
-        idleTimeoutMillis: 0,
-        max: 10,
-      },
-      tableName: 'winston_logs',
+    new PostgresTransport({
+      postgresUrl,
     }),
   ],
 });
@@ -82,7 +72,10 @@ module.exports = logger;
 ## Logging
 
 ```js
-logger.log('info', 'message', {});
+logger.log({
+  level: 'info',
+  message: 'Hello there.',
+});
 ```
 
 ## Querying Logs
@@ -94,9 +87,8 @@ const options = {
   fields: ['message'],
   from: new Date() - 24 * 60 * 60 * 1000,
   until: new Date(),
-  start: 0,
   limit: 10,
-  order: 'desc',
+  order: 'ASC',
 };
 
 //
@@ -126,7 +118,7 @@ logger.stream({ start: -1 }).on('log', (log) => {
 
 ## Run Tests
 
-The tests are written in [mocha](https://mochajs.org/), and designed to be run with npm.
+The tests are written in [jest](https://jestjs.io/), and designed to be run with npm.
 
 ```bash
   $ npm test
