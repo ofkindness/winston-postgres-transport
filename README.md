@@ -103,19 +103,6 @@ logger.query(options, (err, results) => {
 });
 ```
 
-## Streaming Logs
-
-Streaming allows you to stream your logs back
-
-```js
-//
-// Start at the end.
-//
-logger.stream({ start: -1 }).on('log', (log) => {
-  console.log(log);
-});
-```
-
 ## Run Tests
 
 The tests are written in [jest](https://jestjs.io/), and designed to be run with npm.
