@@ -38,7 +38,6 @@ See the default values used:
 
 ```js
 const options = {
-  defaultMeta: {},
   level: 'info',
   name: 'Postgres',
   postgresOptions: {
