@@ -14,36 +14,45 @@
     "name": "Andrei Tretyakov",
     "url": "https://github.com/ofkindness"
   },
+  "main": "lib/winston-postgres-transport.js",
+  "types": "lib/winston-postgres-transport.d.ts",
   "scripts": {
-    "test": "jest winston-postgres-transport.test.js"
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "postversion": "git push && git push --tags",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "test": "jest --config jestconfig.json"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ofkindness/winston-postgres-transport.git"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "homepage": "https://github.com/ofkindness/winston-postgres-transport",
   "bugs": {
     "url": "https://github.com/ofkindness/winston-postgres-transport/issues"
   },
-  "main": "lib/winston-postgres-transport.js",
   "dependencies": {
+    "logform": "^2.2.0",
     "moment": "^2.29.1",
-    "postgres": "^1.0.2",
+    "postgres": "^2.0.0-beta.8",
     "winston-transport": "^4.4.0"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.1",
     "dotenv": "^10.0.0",
-    "eslint": "^7.30.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "jest": "^27.0.6",
-    "prettier": "^2.3.2"
+    "jest": "^27.1.1",
+    "prettier": "^2.4.0",
+    "ts-jest": "^27.0.5",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.4.3"
   },
   "engines": {
     "node": ">= 14.0.0"

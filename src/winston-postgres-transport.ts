@@ -4,12 +4,50 @@
  * @license MIT
  * @author Andrei Tretyakov <andrei.tretyakov@gmail.com>
  */
-const moment = require('moment');
-const postgres = require('postgres');
-const Transport = require('winston-transport');
-const { callbackify } = require('util');
 
-const { handleCallback } = require('./helpers');
+import postgres from 'postgres';
+import moment from 'moment';
+import Transport from 'winston-transport';
+import { callbackify } from 'util';
+
+import { handleCallback } from './helpers';
+
+export interface PostgresTransportOptions {
+  postgresUrl: string;
+  postgresOptions: any;
+  defaultMeta?: any;
+  label?: string;
+  level?: string;
+  name?: string;
+  silent?: boolean;
+  tableName?: string;
+}
+
+export interface PostgresTransport extends PostgresTransportOptions {
+  tableFields: string[];
+  sql: any;
+  defaultMeta: any;
+  label: string;
+  level: string;
+  name: string;
+  silent: boolean;
+  tableName: string;
+}
+
+export interface QueryOptions {
+  fields?: string[];
+  from?: Date | string;
+  order?: string;
+  rows?: number;
+  until?: Date | string;
+}
+
+export enum Table {
+  level = 'level',
+  message = 'message',
+  meta = 'meta',
+  timestamp = 'timestamp',
+}
 
 /**
  * Class for the Postgres transport object.
@@ -27,36 +65,19 @@ const { handleCallback } = require('./helpers');
  * @param {String} [options.name] - Transport instance identifier. Useful if you
  * need to create multiple Postgres transports.
  */
-class PostgresTransport extends Transport {
-  constructor(options = {}) {
+export class PostgresTransport extends Transport {
+  constructor(options: PostgresTransportOptions) {
     super();
 
     const {
+      defaultMeta,
       label = '',
       level = 'info',
-      silent = false,
-      table = [
-        {
-          dataType: 'character varying',
-          name: 'level',
-        },
-        {
-          dataType: 'character varying',
-          name: 'message',
-        },
-        {
-          dataType: 'json',
-          name: 'meta',
-        },
-        {
-          dataType: 'timestamp without time zone',
-          default: 'DEFAULT NOW()',
-          name: 'timestamp',
-        },
-      ],
-      tableName = 'winston_logs',
+      name = 'PostgresTransport',
       postgresOptions = {},
       postgresUrl,
+      silent = false,
+      tableName = 'winston_logs',
     } = options;
 
     //
@@ -66,33 +87,28 @@ class PostgresTransport extends Transport {
       throw new Error('You have to define url connection string');
     }
 
-    const sql = postgres(postgresUrl, postgresOptions);
-
-    const tableFields = table.map((tableField) => tableField.name);
-
-    Object.assign(this, {
-      label,
-      level,
-      silent,
-      sql,
-      table,
-      tableFields,
-      tableName,
-    });
+    this.defaultMeta = defaultMeta;
+    this.label = label;
+    this.level = level;
+    this.name = name;
+    this.silent = silent;
+    this.sql = postgres(postgresUrl, postgresOptions);
+    this.tableFields = Object.values(Table);
+    this.tableName = tableName;
   }
 
   /**
    * Create logs table method.
    * @return {Promise} result of creation within a Promise
    */
-  init() {
-    const { sql, tableFields, tableName } = this;
-
-    return sql`CREATE TABLE IF NOT EXISTS ${sql(tableName)} (
-        ${sql(tableFields[0])} character varying,
-        ${sql(tableFields[1])} character varying,
-        ${sql(tableFields[2])} json,
-        ${sql(tableFields[3])} timestamp without time zone DEFAULT NOW()
+  init(): Promise<any> {
+    return this.sql`CREATE TABLE IF NOT EXISTS ${this.sql(this.tableName)} (
+        ${this.sql(this.tableFields[0])} character varying,
+        ${this.sql(this.tableFields[1])} character varying,
+        ${this.sql(this.tableFields[2])} json,
+        ${this.sql(
+          this.tableFields[3],
+        )} timestamp without time zone DEFAULT NOW()
     );`;
   }
 
@@ -101,7 +117,7 @@ class PostgresTransport extends Transport {
    * Return a Promise which resolves when all queries are finished and the underlying connections are closed.
    * @return {Promise} result within a Promise
    */
-  end(timeout = 0) {
+  close(timeout = 0): Promise<any> {
     return this.sql.end({ timeout });
   }
 
@@ -110,7 +126,7 @@ class PostgresTransport extends Transport {
    * Return a Promise which resolves when all logs are finished.
    * @return {Promise} result within a Promise
    */
-  flush() {
+  flush(): Promise<any> {
     const { sql, tableName } = this;
     return sql`DELETE FROM ${sql(tableName)};`;
   }
@@ -122,7 +138,7 @@ class PostgresTransport extends Transport {
    * @param {string} [info.message] - Message to log
    * @param {Function} callback - Continuation to respond to when complete.
    */
-  log(info, callback) {
+  log(info: any, callback: Function) {
     setImmediate(() => {
       this.emit('logged', info);
     });
@@ -138,11 +154,15 @@ class PostgresTransport extends Transport {
         timestamp: 'NOW()',
       };
 
-      const logQuery = async () => {
-        await sql`INSERT INTO ${sql(tableName)} ${sql(log, ...tableFields)}`;
+      const logQuery = async (cb: (e: unknown) => void) => {
+        try {
+          await sql`INSERT INTO ${sql(tableName)} ${sql(log, ...tableFields)}`;
+        } catch (error) {
+          cb(error);
+        }
       };
 
-      logQuery((error) => {
+      logQuery((error: unknown) => {
         if (error) {
           return handleCallback(callback, error);
         }
@@ -162,7 +182,7 @@ class PostgresTransport extends Transport {
    * @param {string} [options.fields]
    * @param {Function} callback - Continuation to respond to when complete.
    */
-  query(options = {}, callback) {
+  query(options: QueryOptions, callback: Function) {
     const { sql, tableFields, tableName } = this;
 
     const {
@@ -179,7 +199,7 @@ class PostgresTransport extends Transport {
       filteredFields = filteredFields.filter((field) => fields.includes(field));
     }
 
-    const queryQuery = callbackify(
+    const queryQuery = callbackify<any>(
       () => sql`SELECT ${sql(filteredFields)}
     FROM ${sql(tableName)}
     WHERE ${sql(tableFields[3])} >= ${moment(from)
@@ -189,10 +209,10 @@ class PostgresTransport extends Transport {
         .utc()
         .format('YYYY-MM-DD HH:mm:ss.SSS')}
     ORDER BY ${sql(tableFields[3])} ${sql(order)}
-    LIMIT ${sql(rows)};`
+    LIMIT ${sql(rows)};`,
     );
 
-    queryQuery((error, data) => {
+    queryQuery((error: unknown, data: any) => {
       if (error) {
         return handleCallback(callback, error);
       }
@@ -200,5 +220,3 @@ class PostgresTransport extends Transport {
     });
   }
 }
-
-module.exports = PostgresTransport;

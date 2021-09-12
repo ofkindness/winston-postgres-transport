@@ -4,12 +4,12 @@
  * @license MIT
  * @author Andrei Tretyakov <andrei.tretyakov@gmail.com>
  */
-const { config } = require('dotenv');
-const { debuglog } = require('util');
+import { config } from 'dotenv';
+import { debuglog } from 'util';
 
-const logTestSuite = require('./suite/log');
-const queryTestSuite = require('./suite/query');
-const PostgresTransport = require('../winston-postgres-transport');
+import logTestSuite from '../suite/log';
+import queryTestSuite from '../suite/query';
+const { PostgresTransport } = require('../winston-postgres-transport');
 
 config();
 debuglog('postgres');
@@ -32,5 +32,5 @@ describe('Postgres', () => {
 
   queryTestSuite(transport);
 
-  afterAll(() => transport.end());
+  afterAll(() => transport.close());
 });

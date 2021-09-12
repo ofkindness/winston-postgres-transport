@@ -4,3 +4,4 @@
 *.log
 coverage
 node_modules
+lib

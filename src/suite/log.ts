@@ -4,18 +4,18 @@
  * @license MIT
  * @author Andrei Tretyakov <andrei.tretyakov@gmail.com>
  */
-const assert = require('assert');
+import assert, { ok, strictEqual } from 'assert';
 
 const info = {
   level: 'debug',
   message: 'message',
 };
 
-module.exports = (transport) => {
+export default (transport: any) => {
   describe(`.log()`, () => {
     it('should be present', () => {
-      assert.ok(transport.log);
-      assert.strictEqual('function', typeof transport.log);
+      ok(transport.log);
+      strictEqual('function', typeof transport.log);
     });
 
     it('should return true without callback', () => {
@@ -24,7 +24,7 @@ module.exports = (transport) => {
     });
 
     it('should return true with callback', () => {
-      const result = transport.log(info, (_, ...status) => {
+      const result = transport.log(info, (_: any, ...status: any) => {
         assert(true, status);
       });
       assert(true, result);

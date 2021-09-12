@@ -4,18 +4,18 @@
  * @license MIT
  * @author Andrei Tretyakov <andrei.tretyakov@gmail.com>
  */
-const assert = require('assert');
+import { ok, strictEqual } from 'assert';
 
 const info = {
   level: 'debug',
   message: 'message',
 };
 
-module.exports = (transport) => {
+export default (transport: any) => {
   describe('.query()', () => {
     it('should be present', () => {
-      assert.ok(transport.query);
-      assert.strictEqual('function', typeof transport.query);
+      ok(transport.query);
+      strictEqual('function', typeof transport.query);
     });
 
     it('should return matching results using default querying', () => {
@@ -44,7 +44,7 @@ module.exports = (transport) => {
       transport.log(info, () => {
         transport.query(
           { fields: ['message', 'timestamp'], order: 'ASC' },
-          callbackMock
+          callbackMock,
         );
         expect(callbackMock.mock.calls[0][0]).toBe(null);
         expect(callbackMock.mock.calls[0][1].length).toBe(3);
